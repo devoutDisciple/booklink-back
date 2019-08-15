@@ -1,36 +1,15 @@
-/* jshint indent: 2 */
-const Sequelize = require("sequelize");
-module.exports = function(sequelize) {
-	return sequelize.define("book_list", {
-		id: {
-			type: Sequelize.INTEGER(11),
-			allowNull: false,
-			primaryKey: true
-		},
-		name: {
-			type: Sequelize.STRING(256),
-			allowNull: false
-		},
-		url: {
-			type: Sequelize.STRING(256),
-			allowNull: false
-		},
-		desc: {
-			type: Sequelize.STRING(512),
-			allowNull: false
-		},
-		type: {
-			type: Sequelize.INTEGER(11),
-			allowNull: false,
-			defaultValue: "8"
-		},
-		is_delete: {
-			type: Sequelize.INTEGER(11),
-			allowNull: false,
-			defaultValue: "0"
+const fs = require("fs");
+const images = require("images");
+
+fs.readdir("/Users/zhangzhen/program/booklink/booklink-back/public", (err, data) => {
+	if(err) console.log(err);
+	console.log(data);
+	data.map(item => {
+		if(item.includes(".jpg")) {
+			images(`/Users/zhangzhen/program/booklink/booklink-back/public/${item}`).save(`/Users/zhangzhen/program/booklink/booklink-back/public//${item}`, {
+				quality : 20
+			});
 		}
-	}, {
-		tableName: "book_list",
-		timestamps: false
+
 	});
-};
+});
