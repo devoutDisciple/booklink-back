@@ -50,9 +50,9 @@ var httpServer = http.createServer(app);
 // 路由 controller层
 controller(app);
 
-// // 监听3001端口
-httpServer.listen(3001, () => {
-	console.log(chalk.yellow("http: server is listenning 3001"));
+// // 80
+httpServer.listen(80, () => {
+	console.log(chalk.yellow("http: server is listenning 80"));
 });
 
 // 启动服务器，监听对应的端口

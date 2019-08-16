@@ -58,7 +58,8 @@ module.exports = {
 				]
 			}).then(books => {
 				let result = [];
-				books.map(item => {
+				books.map((item, index) => {
+					if(index > 10) return;
 					result.push(item.dataValues);
 				});
 				res.send(resultMessage.success(result));
@@ -90,15 +91,17 @@ module.exports = {
 	editBook: (req, res, filename) => {
 		console.log(req.body);
 		console.log(filename);
+		let body = req.body;
 		const params = {
-			name: req.body.name,
-			author: req.body.author,
-			desc: req.body.desc,
-			url: imgUrl + filename,
-			type: req.body.type,
-			price: req.body.price,
-			borrow: req.body.borrow
+			name: body.name,
+			author: body.author,
+			desc: body.desc,
+			type: body.type,
+			price: body.price,
+			borrow: body.borrow
 		};
+		// modify 1-没有传文件 2-修改文件
+		body.modify == 2 ? params.url = imgUrl + filename : null;
 		try {
 			BookListModel.update(params, {
 				where: {
